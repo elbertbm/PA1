@@ -1,0 +1,36 @@
+---
+title: "PA1_template"
+output: html_document
+---
+
+Loading and preprocessing the data
+
+```{r}
+PA1<-read.csv("D:/Rcourse/activity.csv",header=T)
+```
+
+What is mean total number of steps taken per day?
+
+```{r}
+PA1_1<-aggregate(PA1$steps,by=list(PA1$date),sum,na.rm=T)  #Calculate the total number of steps taken per day
+PA1_1
+hist(PA1_1$x,main="total number of steps taken each day",xlab="total number of steps") #histogram of the total number of steps taken each day
+tapply(PA1$steps,PA1$date,mean,na.rm=T)  # the mean and median of the total number of steps taken per day
+tapply(PA1$steps,PA1$date,median,na.rm=T)
+```
+
+What is the average daily activity pattern?
+
+
+```{r}
+PA1_2<-tapply(PA1$steps,PA1$interval,mean,na.rm=T)
+PA1_3<-unique(PA1$interval)
+plot(PA1_3,PA1_2,type="l",xlab="5-minute   interval",ylab="average number of steps taken")  #plot of the 5-minute interval nd the average number of steps taken, averaged across all days
+PA1_4<-cbind(PA1_3,PA1_2)
+PA1_4[PA1_2==max(PA1_2)] # maximum number of steps
+```
+
+Imputing missing values
+
+
+
